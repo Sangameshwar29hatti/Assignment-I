@@ -14,8 +14,52 @@ This project is a **3-tier rule engine** that uses an **Abstract Syntax Tree (AS
 ((age > 30 AND department = 'Sales') OR (age < 25 AND department = 'Marketing')) AND (salary > 50000 OR experience > 5)
 
 
-## API Endpoints
-1. Create a Rule
-POST /api/rules/create
+Response
 
-This endpoint converts a rule string into an Abstract Syntax Tree (AST).
+{
+    "ast": {
+        "type": "operator",
+        "value": "AND",
+        "left": {
+            "type": "operator",
+            "value": "OR",
+            "left": {
+                "type": "operator",
+                "value": "AND",
+                "left": {
+                    "type": "operand",
+                    "value": "age > 30"
+                },
+                "right": {
+                    "type": "operand",
+                    "value": "department = 'Sales'"
+                }
+            },
+            "right": {
+                "type": "operator",
+                "value": "AND",
+                "left": {
+                    "type": "operand",
+                    "value": "age < 25"
+                },
+                "right": {
+                    "type": "operand",
+                    "value": "department = 'Marketing'"
+                }
+            }
+        },
+        "right": {
+            "type": "operator",
+            "value": "OR",
+            "left": {
+                "type": "operand",
+                "value": "salary > 50000"
+            },
+            "right": {
+                "type": "operand",
+                "value": "experience > 5"
+            }
+        }
+    }
+}
+
